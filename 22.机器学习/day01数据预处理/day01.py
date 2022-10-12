@@ -7,6 +7,7 @@ from sklearn.decomposition import PCA
 import jieba
 import numpy as np
 
+"数据预处理方式："
 
 def dictvec():
     """
@@ -88,7 +89,7 @@ def tfidfvec():
 
 def mm():
     """min max 缩放
-    归一化处理 默认0-1，设置到[2-3]之间，
+    归一化处理-有场景限制不常用 默认0-1，设置到[2-3]之间，
     :return: NOne
     """
     mm = MinMaxScaler(feature_range=(2, 3))
@@ -98,7 +99,10 @@ def mm():
 
 def stand():
     """
-    标准化缩放，对归一化的一种改进
+    标准化缩放，对归一化的一种改进。处理之后聚集在标准正太分布(均值为0,方差为1)均值0附近
+    fit_transform(numpy array)
+    mean_ 原始数据中每列特征平均值
+    std_ 每列特征的方差
     :return:
     """
     std = StandardScaler()
@@ -109,17 +113,28 @@ def stand():
 def im():
     """
     缺失值处理
+    missing_values='NaN', strategy='mean',ax
     :return:NOne
     """
     # NaN, nan
-    im = SimpleImputer(missing_values='NaN', strategy='mean', axis=0)
+    im = SimpleImputer(missing_values=np.nan, strategy="mean")
     data = im.fit_transform([[1, 2], [np.nan, 3], [7, 6]])
     print(data)
     return None
 
+##数据降维：
+"1特征选择：选择区分度高的特征," \
+"   主要方法：" \
+"       1.FIlter:VarianceThreshold 方差门槛选择方差大的" \
+"       2.Embedded嵌入式：正则化（防止过拟合）,决策树" \
+"       3.Wrapper包裹式 不常用" \
+"2.主成分分析："
+
+
 def var():
     """
-    特征选择-删除低方差的特征
+    把没有明显特征的删除
+    特征选择-删除低方差的特征。threshold=1.0表示方差小于1的删除掉
     :return: None
     """
     var = VarianceThreshold(threshold=1.0)
@@ -129,7 +144,15 @@ def var():
 
 def pca():
     """
-    主成分分析进行特征降维
+    场景：
+        特征数量上百时
+        一个图片几万个特征
+    主成分分析进行特征降维：
+        特征会减少，数据也会改变。用低维度表示高维度
+        消减回归或聚类分析中
+    n_components:
+        小数 0-1  90-95%经验值
+        整数  减少到的特征数量--一般不用
     :return: None
     """
     pca = PCA(n_components=0.9)
@@ -138,11 +161,14 @@ def pca():
     return None
 
 if __name__ == "__main__":
-    # pca()
+     pca()
    # dictvec()
    # countvec()
    # hanzivec()
-    print("========================")
+   # print("========================")
    # tfidfvec()
    # mm()
-    stand()
+   # stand()
+   # print("================")
+   # im()
+   # var()
