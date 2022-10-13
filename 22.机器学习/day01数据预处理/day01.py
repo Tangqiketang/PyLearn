@@ -7,7 +7,14 @@ from sklearn.decomposition import PCA
 import jieba
 import numpy as np
 
-"数据预处理方式："
+"""转化器 实现特征工程
+    fit_transform = fit + transform
+    后续多组数据用transform，否则数据标准不一样
+    
+"""
+
+
+
 
 def dictvec():
     """
@@ -103,6 +110,7 @@ def stand():
     fit_transform(numpy array)
     mean_ 原始数据中每列特征平均值
     std_ 每列特征的方差
+    fit_transform多个数据，后续用transform，否则fit之后标准会变
     :return:
     """
     std = StandardScaler()

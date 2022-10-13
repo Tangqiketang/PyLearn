@@ -7,6 +7,9 @@ from sklearn.model_selection import train_test_split
 # load_*和fetch返回的数据类型datasets.base.Bunch（字典类型）
 
 
+
+
+
 li = load_iris()
 #print(li)
 #print(li.data)
