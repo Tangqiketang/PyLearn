@@ -26,6 +26,8 @@ import os as os
 
 ###定义全局参数，放入全局变量FLAGS
 tf.app.flags.DEFINE_string("model_dir","./tmp/checkpoint/model","模型保存的目录,model是文件")
+tf.app.flags.DEFINE_integer("max_step",100,"模型训练的次数")
+
 FLAGS = tf.app.flags.FLAGS
 
 
@@ -72,7 +74,7 @@ def myregression():
         if os.path.exists("./tmp/checkpoint"):
             saver.restore(sess, FLAGS.model_dir)
 
-        for i in range(500):
+        for i in range(FLAGS.max_step):
             #训练
             sess.run(train_op)
 
