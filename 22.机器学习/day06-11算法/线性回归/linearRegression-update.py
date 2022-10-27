@@ -23,6 +23,7 @@ loss 均方误差 (y1-y1')^2+......(y_100-y_100')^2 /100
 
 import tensorflow as tf
 
+##二维特征
 def myregression():
     #创建假数据  y=0.7x+0.1z+0.8
     x = tf.random_normal([100,2],mean=1.75,stddev=0.5,name="x_data")
