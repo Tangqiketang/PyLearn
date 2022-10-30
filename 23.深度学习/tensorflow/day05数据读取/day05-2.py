@@ -33,7 +33,7 @@ if __name__ == "__main__":
     print(filename)
     filelist = [os.path.join("./csvdata/",file) for file in filename if file[-3:]=="csv"]
     ####读取文件op
-    example,lable = csv_read(filelist)
+    example_batch,lable_batch = csv_read(filelist)
 
     with tf.Session() as sess:
         # 开启读文件的线程
@@ -41,7 +41,7 @@ if __name__ == "__main__":
         threads = tf.train.start_queue_runners(sess,coord=coord)
 
         ##运行op， 打印读取的内容
-        print(sess.run([example,lable]))
+        print(sess.run([example_batch,lable_batch]))
 
         ##回收子线程
         coord.request_stop()
