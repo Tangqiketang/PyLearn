@@ -1,7 +1,8 @@
 import tensorflow as tf
 import os
 
-"""图片读取 https://www.cs.toronto.edu/~kriz/cifar.html"""
+
+"""先把图片按照cifarRead读出label image，写入tfrecord文件，再读取文件"""
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string("cifar_dir","./cifar10/cifar-10-batches-py/","二进制文件目录")
