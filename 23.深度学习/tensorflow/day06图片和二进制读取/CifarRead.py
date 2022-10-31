@@ -1,7 +1,7 @@
 import tensorflow as tf
 import os
 
-"""图片读取 https://www.cs.toronto.edu/~kriz/cifar.html"""
+"""先把图片按照cifarRead读出label image，写入tfrecord文件，再读取文件"""
 
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string("cifar_dir","./cifar10/cifar-10-batches-py/","二进制文件目录")
@@ -12,11 +12,11 @@ class CifarRead(object):
         self.file_list = filelist
         ##定义读取图片的一些属性
         self.height = 32
-        self.weight = 32
+        self.width = 32
         self.channel = 3
         #二进制文件每张图片的字节数=一个分类标记+像素×通道
         self.label_bytes =1 ##第一位是分类标志
-        self.image_bytes = self.height * self.weight *self.channel
+        self.image_bytes = self.height * self.width *self.channel
         self.bytes = self.image_bytes+self.label_bytes
 
     def read_and_decode(self):
@@ -33,7 +33,7 @@ class CifarRead(object):
         label = tf.cast(tf.slice(label_image,[0],[self.label_bytes]), tf.int32)
         image = tf.slice(label_image,[self.label_bytes],[self.image_bytes])
         ##5.对图片的特征进行形状改变 [3072]-->[32,32,3]
-        image_reshape = tf.reshape(image,[self.height,self.weight,self.channel])
+        image_reshape = tf.reshape(image,[self.height,self.width,self.channel])
 
         ##批处理
         image_batch, label_batch = tf.train.batch([image_reshape,label],batch_size=10,num_threads=1,capacity=10)
