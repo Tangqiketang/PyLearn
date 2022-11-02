@@ -19,4 +19,21 @@ neural network,NN,神经网络：
 算法：神经网络
 策略：交叉熵损失  信息熵
 优化：反向传播，其实就是梯度下降
+
+结合图片：
+    1.样品特征×权重+bias，经过softmax后每个样本对应每个输出都有一个概率值。tf.matmul(a,b,)+bias
+    2.把概率值和真实结果通过交叉熵公司计算，得到每个样品的交叉熵损失。损失值列表=tf.nn.softmax_cross_entropy_withlogits(labels=真实值,logits=样本加权之后的值)
+    3.根据损失值列表获取平均值   tf.reduce_mean(损失值列表)
+    ===》开始优化
+    4.梯度下降  梯度下降op=tf.train.GradientDescentOptimizer(learning_rate)
+    5.精确值计算 tf.equal()
 """
+
+from tensorflow.examples.tutorials.mnist import input_data
+###从本地文件读取
+mnist = input_data.read_data_sets("./mnist/input_data/",one_hot=True)
+
+print("第0个样本的特征矩阵：",mnist.train.images[0])
+print("第0个样本的标签：",mnist.train.labels[0])
+##获取50个样品
+##mnist.train.next_batch(50)
