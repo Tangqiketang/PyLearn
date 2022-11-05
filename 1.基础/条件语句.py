@@ -16,10 +16,8 @@ list1=["a","b","c","d"]
 for i in range(len(list1)):
     print(list1[i])
 
-def printme( str ):
-   "打印传入的字符串到标准显示设备上"
-   "打印传入的字符串到标准显示设备上"
-   print(str)
-   return
+###打印之后返回的是每个print的返回值9个None的列表
+xx = [print(x) for x in range(10)]
+print("xx",xx)
 
-printme("aaaaaaaaaa")
+
