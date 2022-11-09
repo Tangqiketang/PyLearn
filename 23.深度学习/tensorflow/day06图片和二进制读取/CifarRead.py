@@ -20,8 +20,8 @@ class CifarRead(object):
         self.bytes = self.image_bytes+self.label_bytes
 
     def read_and_decode(self):
-        ##1.构造文件队列
-        file_queue = tf.train.string_input_producer(self.file_list)
+        ##1.构造文件队列.shuffle=True表示可以乱序
+        file_queue = tf.train.string_input_producer(self.file_list,shuffle=True)
         ##2.构造固定长度二进制文件读取器，每次读取每个样本的字节
         reader = tf.FixedLengthRecordReader(self.bytes)
         key,value = reader.read(file_queue)
