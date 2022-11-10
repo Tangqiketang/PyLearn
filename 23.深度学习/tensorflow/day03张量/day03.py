@@ -1,5 +1,12 @@
 import tensorflow as tf
 
+t = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+a1 = tf.reshape(t, [3, 4])
+print("a1:", a1)
+a2 = tf.reshape(t, [-1, 4])
+print("a2:", a2)
+a3 = tf.reshape(t, [-1])
+print("a3", a3)
 
 a = tf.constant(5.0)
 
