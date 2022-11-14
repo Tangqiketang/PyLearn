@@ -55,7 +55,7 @@ def fc_model(image_batch):
 
 def label_to_onehot(label_batch):
     """
-        把[100,4]的目标值变成 [100,4,26]的批量onehot
+        把[100,4]的目标值变成 [100,4,26]的批量onehot.depth表示一共多少种分类
     """
     print("lable.before.onehot:",label_batch)
     onehot_label = tf.one_hot(label_batch,depth=FLAGS.letter_num,on_value=1.0,axis=2)
