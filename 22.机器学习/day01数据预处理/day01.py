@@ -90,7 +90,8 @@ def tfidfvec():
 "数值类型" \
     "标准化-常用：" \
     "归一化-场景有限：解决特征同等重要的问题(对异常点处理不太好，和最大值最小值关系太大)，默认映射到[0-1]可以设置" \
-    "缺少值："
+    "缺少值：" \
+    "正则化： 解决过拟合"
 "类别型：one hot编码"
 "时间型：时间切分"
 
@@ -120,9 +121,14 @@ def stand():
 
 def im():
     """
-    缺失值处理
+    第一种缺失值处理，用平均值
     missing_values='NaN', strategy='mean',ax
     :return:NOne
+
+    ##第二种方式缺失值处理,丢弃无用的数据
+    data = data.replace(to_replace="?",value=np.nan)
+    data = data.dropna()
+
     """
     # NaN, nan
     im = SimpleImputer(missing_values=np.nan, strategy="mean")
