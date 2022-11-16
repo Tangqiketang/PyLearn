@@ -1,2 +1,7 @@
 source activate  3.6.7
 pip3 install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.0.1-cp36-cp36m-linux_x86_64.whl
+
+
+
+win10:
+https://blog.csdn.net/Angeldream123/article/details/124887919
