@@ -7,10 +7,11 @@ from sklearn.decomposition import PCA
 import jieba
 import numpy as np
 
-"""转化器 实现特征工程
-    fit_transform = fit + transform
-    后续多组数据用transform，否则数据标准不一样
-    
+"""
+   包含了字典类型/文本类型转换成sparse矩阵，中文切词/tfidf重要性，
+   归一化/标准化/
+   缺失值处理
+   pca自动筛选主成分
 """
 
 
@@ -18,7 +19,7 @@ import numpy as np
 
 def dictvec():
     """
-    字典类型的数据抽取，转成数值类型矩阵
+    字典类型的数据抽取，转成数值类型矩阵 sparse为了节约内存
     :return: None
     """
     # 实例化
@@ -26,21 +27,21 @@ def dictvec():
     # 调用fit_transform
     data = dict.fit_transform([{'city': '北京','temperature': 100}, {'city': '上海','temperature':60}, {'city': '深圳','temperature': 30}])
     # 获取特征名称
-    print(dict.get_feature_names())
-    print(dict.inverse_transform(data))
+    print("DictVect.getFeatureName对应了下面的Inverse后的矩阵的每列字段:",dict.get_feature_names())
+    print("DictVect.getInverseTransform:",dict.inverse_transform(data))
     print(data)
     return None
 
 
 def countvec():
     """
-    对文本进行特征值化. 文本分类情感分析
+    对文本进行特征值化. 文本分类情感分析。每个关键字作为一个特征。注意这里中间有空格！需要用jieba
     :return: None
     """
     cv = CountVectorizer()
     data = cv.fit_transform(["人生 苦短，我 喜欢 python", "人生漫长，不用 python"])
-    print(cv.get_feature_names())
-    print(data.toarray())
+    print("CountVect.getFeatureName:",cv.get_feature_names())
+    print("CountVect.data.toarray:",data.toarray())
     return None
 
 def cutword():
@@ -63,11 +64,11 @@ def hanzivec():
     :return: None
     """
     c1, c2, c3 = cutword()
-    print(c1, c2, c3)
+    ###返回词频矩阵
     cv = CountVectorizer()
     data = cv.fit_transform([c1, c2, c3])
-    print(cv.get_feature_names())
-    print(data.toarray())
+    print("hanzi.CountVect.getFeatureName:",cv.get_feature_names())
+    print("hanzi.CountVect.data.toarray:",data.toarray())
     return None
 
 
@@ -75,16 +76,15 @@ def hanzivec():
 def tfidfvec():
     """
     中文特征值化.  tf idf
-    term frequency 词的频率出现的次数
+    term frequency 词的频率出现的次数,在其他文本中不常出现说明区分度高
     idf 逆文档频率 inverse document frequency log(总文档数量/该词出现的文档数量)
     :return: None
     """
     c1, c2, c3 = cutword()
-    print(c1, c2, c3)
     tf = TfidfVectorizer()
     data = tf.fit_transform([c1, c2, c3])
-    print(tf.get_feature_names())
-    print(data.toarray())
+    print("TFidf.getFeatureName:",tf.get_feature_names())
+    print("TFidf.data.toarray:",data.toarray())
     return None
 
 "数值类型" \
@@ -102,7 +102,7 @@ def mm():
     """
     mm = MinMaxScaler(feature_range=(2, 3))
     data = mm.fit_transform([[90,2,10,40],[60,4,15,45],[75,3,13,46]])
-    print(data)
+    print("MinMaxScaler.data:",data)
     return None
 
 def stand():
@@ -116,7 +116,7 @@ def stand():
     """
     std = StandardScaler()
     data = std.fit_transform([[ 1., -1., 3.],[ 2., 4., 2.],[ 4., 6., -1.]])
-    print(data)
+    print("StandardScaler.data:",data)
     return None
 
 def im():
@@ -133,7 +133,7 @@ def im():
     # NaN, nan
     im = SimpleImputer(missing_values=np.nan, strategy="mean")
     data = im.fit_transform([[1, 2], [np.nan, 3], [7, 6]])
-    print(data)
+    print("SimpleImputer.data:",data)
     return None
 
 ##数据降维：
@@ -153,7 +153,7 @@ def var():
     """
     var = VarianceThreshold(threshold=1.0)
     data = var.fit_transform([[0, 2, 0, 3], [0, 1, 4, 3], [0, 1, 1, 3]])
-    print(data)
+    print("VarianceThreshold.data:",data)
     return None
 
 def pca():
@@ -171,18 +171,16 @@ def pca():
     """
     pca = PCA(n_components=0.9)
     data = pca.fit_transform([[2,8,4,5],[6,3,0,8],[5,4,9,1]])
-    print(data)
+    print("PCA.data:",data)
     return None
 
 if __name__ == "__main__":
-     pca()
-   # dictvec()
-   # countvec()
-   # hanzivec()
-   # print("========================")
-   # tfidfvec()
-   # mm()
-   # stand()
-   # print("================")
-   # im()
-   # var()
+   dictvec()
+   countvec()
+   hanzivec()
+   tfidfvec()
+   mm()
+   stand()
+   im()
+   var()
+   pca()

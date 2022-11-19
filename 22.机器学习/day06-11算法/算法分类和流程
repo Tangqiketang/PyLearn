@@ -24,3 +24,10 @@
     3.找到合适的算法进行预测
     4.模型的评估，判定效果==》没有合格换算法和参数
     5.上线以API方式提供
+
+ ==================================
+ 数据切分from sklearn.model_selection import train_test_split
+     x_train,x_test,y_train,y_test = train_test_split(news.data,news.target,test_size=0.25)
+ 特征提取
+    from sklearn.feature_extraction.text import TfidfVectorizer 特征提取
+
