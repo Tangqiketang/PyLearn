@@ -60,3 +60,4 @@ def fit_transform():
 
 if __name__ == '__main__':
     fit_transform()
+    descData()
