@@ -58,9 +58,9 @@ def knncls():
     print(data)
 
     # 把签到数量少于n个目标位置删除.分组之后把次数大于3的拿出来，索引重新生成
-    place_count = data.groupby('place_id').count()
-    tf = place_count[place_count.row_id > 3].reset_index()
-    data = data[data['place_id'].isin(tf.place_id)]
+    # place_count = data.groupby('place_id').count()
+    # tf = place_count[place_count.row_id > 3].reset_index()
+    # data = data[data['place_id'].isin(tf.place_id)]
     # 取出数据当中的特征值和目标值
     y = data['place_id']
     x = data.drop(['place_id'], axis=1)
@@ -85,9 +85,10 @@ def knncls():
     # print("预测的准确率:", knn.score(x_test, y_test))
 
     # 构造一些参数的值进行搜索
-    param = {"n_neighbors": [3, 5, 10]}
+    #param = {"n_neighbors": [3, 5, 10]}
+    param = {"n_neighbors": [1, 2,3]}
 
-    # 进行网格搜索
+    # 超参数搜索-网格搜索。每组超参数k都采用"交叉验证"进行评估，最后选出
     gc = GridSearchCV(knn, param_grid=param, cv=2)
     gc.fit(x_train, y_train)
     # 预测准确率

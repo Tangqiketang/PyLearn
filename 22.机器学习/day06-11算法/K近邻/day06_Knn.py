@@ -2,7 +2,7 @@
 K近邻算法：
     优点：无需估计器，无需训练。
     缺点：懒惰算法，计算内存消耗大
-         必须指定K值，K值指定不当分分类精度不高
+         必须指定K值，K值指定不当分分类精度不高.K太小受异常点影响，太大有类别影响
     场景：小数据量，几千几万样本
 
 
@@ -39,22 +39,19 @@ def knncls():
     data = pd.read_csv("./data/train.csv")
     print(data.head(10))
     # 1、缩小数据,查询数据晒讯
-    data = data.query("x > 1.0 &  x < 1.25 & y > 2.5 & y < 2.75")
+    ##data = data.query("x > 1.0 &  x < 1.25 & y > 2.5 & y < 2.75")
+    data = data.query("x > 1.0 &  x < 10.25 & y > 2.5 & y < 10.75")
     # 处理时间的数据
     time_value = pd.to_datetime(data['time'], unit='s')
     print(time_value)
-
     # 把日期格式转换成 字典格式
     time_value = pd.DatetimeIndex(time_value)
-
     # 构造一些特征
     data['day'] = time_value.day
     data['hour'] = time_value.hour
     data['weekday'] = time_value.weekday
-
     # 把时间戳特征删除
     data = data.drop(['time'], axis=1)
-
     print(data)
 
     # 把签到数量少于n个目标位置删除.分组之后把次数大于3的拿出来，索引重新生成
