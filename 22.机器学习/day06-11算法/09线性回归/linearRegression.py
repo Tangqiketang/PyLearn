@@ -4,7 +4,7 @@ w1x2+w2x2+w3x3+....w_nx_n+ bias
 [[1,2,3,4,5]  [[20]
 [5,2,3,1,1]]  [30]]
 ====================================================================
-算法：线性回归
+算法：09线性回归
 策略：均方误差。
 优化：梯度下降
 
@@ -23,14 +23,14 @@ loss 均方误差 (y1-y1')^2+......(y_100-y_100')^2 /100
 
 import tensorflow as tf
 
-##二维特征
+#####一维特征
 def myregression():
-    #创建假数据  y=0.7x+0.1z+0.8
-    x = tf.random_normal([100,2],mean=1.75,stddev=0.5,name="x_data")
-    y_true = tf.matmul(x,[[0.7],[0.1]])+0.8
+    #创建假数据  y=0.7x+0.8
+    x = tf.random_normal([100,1],mean=1.75,stddev=0.5,name="x_data")
+    y_true = tf.matmul(x,[[0.7]])+0.8
 
     ##随机创建一个权重矩阵 和一偏置项 和预测结果函数
-    weight = tf.Variable(tf.random_normal([2,1],mean=0.0,stddev=1.0),name="w")
+    weight = tf.Variable(tf.random_normal([1,1],mean=0.0,stddev=1.0),name="w")
     bias = tf.Variable(0.0,name="b")
     y_predict = tf.matmul(x,weight) + bias
 
@@ -43,10 +43,10 @@ def myregression():
     with tf.Session() as sess:
         sess.run(init_op)
 
-        print("随机初始化参数权重为:%s，偏置为：%f" % (weight.eval(),bias.eval()))
-        for i in range(500):
+        print("随机初始化参数权重为:%f，偏置为：%f" % (weight.eval(),bias.eval()))
+        for i in range(100):
             sess.run(train_op)
-            print("优化%f次后，loss为%s，参数权重为:%s，偏置为：%f" % (i,loss,weight.eval(), bias.eval()))
+            print("优化%f次后，loss为%s，参数权重为:%f，偏置为：%f" % (i,loss,weight.eval(), bias.eval()))
     return None
 
 if __name__ == "__main__":
