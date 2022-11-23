@@ -107,7 +107,8 @@ def mm():
 
 def stand():
     """
-    标准化缩放，对归一化的一种改进。处理之后聚集在标准正太分布(均值为0,方差为1)均值0附近
+    标准化缩放，对归一化的一种改进。处理之后聚集在标准正太分布(均值为0,方差为1)均值0附近，
+    比如工资1000-10000   年龄20-80 ，让这些特征符合正太分布，实现跨量纲比较影响
     fit_transform(numpy array)
     mean_ 原始数据中每列特征平均值
     std_ 每列特征的方差
@@ -115,7 +116,8 @@ def stand():
     :return:
     """
     std = StandardScaler()
-    data = std.fit_transform([[ 1., -1., 3.],[ 2., 4., 2.],[ 4., 6., -1.]])
+    ##data = std.fit_transform([[ 1., -1., 3.],[ 2., 4., 2.],[ 4., 6., -1.]])
+    data = std.fit_transform([[1000,20],[10000,80]])
     print("StandardScaler.data:",data)
     return None
 
