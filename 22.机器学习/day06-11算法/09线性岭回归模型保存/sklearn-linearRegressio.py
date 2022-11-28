@@ -100,5 +100,5 @@ def predict():
     return None
 
 if __name__ == '__main__':
-    mylinearAndSaveModel(3)
+    mylinearAndSaveModel(2)
     #predict()
