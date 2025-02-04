@@ -1,3 +1,6 @@
+def test_import():
+    print("import触发第一个面向对象py的方法")
+
 ## python3.x 默认统一以object为基类
 class A(object):
     #公有类属性。每个对象创建时，会复制类属性过去，值取决于类属性的当前的值
