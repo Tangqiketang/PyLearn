@@ -17,7 +17,9 @@ screen.blit(hero, (150, 300))
 # 可以在所有绘制工作完成之后，统一调用update方法
 pygame.display.update()
 
-while True:
-    pass
+# while True:
+#     pass
+##暂停10秒钟
+pygame.time.wait(10000)
 
 pygame.quit()

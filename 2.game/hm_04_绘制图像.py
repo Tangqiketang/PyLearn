@@ -13,7 +13,10 @@ screen.blit(bg, (0, 0))
 # 3> update 更新屏幕显示
 pygame.display.update()
 
-while True:
-    pass
+# while True:
+#     pass
+##暂停10秒钟
+pygame.time.wait(10000)
+
 
 pygame.quit()

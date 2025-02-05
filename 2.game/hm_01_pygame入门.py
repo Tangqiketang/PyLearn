@@ -1,3 +1,6 @@
+##anaconda环境中 pip3 install pygame
+##验证 python3 -m pygame.examples.aliens
+
 import pygame
 
 pygame.init()

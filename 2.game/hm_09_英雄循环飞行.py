@@ -9,12 +9,9 @@ screen = pygame.display.set_mode((480, 700))
 # 绘制背景图像
 bg = pygame.image.load("./images/background.png")
 screen.blit(bg, (0, 0))
-# pygame.display.update()
-
 # 绘制英雄的飞机
 hero = pygame.image.load("./images/me1.png")
 screen.blit(hero, (150, 300))
-
 # 可以在所有绘制工作完成之后，统一调用update方法
 pygame.display.update()
 
@@ -25,15 +22,14 @@ clock = pygame.time.Clock()
 hero_rect = pygame.Rect(150, 300, 102, 126)
 
 # 游戏循环 -> 意味着游戏的正式开始！
-while True:
-
-    # 可以指定循环体内部的代码执行的频率
+while hero_rect.y!=301:
+    # 可以指定循环体内部的代码执行的频率。
     clock.tick(60)
 
     # 2. 修改飞机的位置
-    hero_rect.y -= 1
+    hero_rect.y = hero_rect.y-1
 
-    # 判断飞机的位置
+    # 判断飞机的位置.向上飞，飞出背景则从最下面冒出来。
     if hero_rect.y <= 0:
         hero_rect.y = 700
 

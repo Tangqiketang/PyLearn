@@ -18,7 +18,9 @@ hero = pygame.image.load("./images/me1.png")
 screen.blit(hero, (150, 300))
 pygame.display.update()
 
-while True:
-    pass
+# while True:
+#     pass
+##暂停10秒钟
+pygame.time.wait(10000)
 
 pygame.quit()
