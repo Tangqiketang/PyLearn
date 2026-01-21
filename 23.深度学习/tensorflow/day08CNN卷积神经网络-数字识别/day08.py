@@ -7,7 +7,7 @@
     结果形状为[None样本数量,height,weight,filter的个数]     卷积有几个通道代表几种特征，输出也有几个通道。
 2.激活relu
     relu_1 = tf.nn.relu(conv_1)
-3.池化pool:取出某一块区域最大值，比如4个变1个。   池化作用：模糊化位置并且保留存在性。
+3.池化pool:取出某一块区域最大值，比如4个变1个。   池化作用：模糊化位置并且保留存在性。后期一些场景下被可变步长stride的卷积核替代。
     pool_1 = tf.nn.max_pool(relu_1,
                             ksize[,,,]，
                             零填充padding="same"表示输出图片大小不变
