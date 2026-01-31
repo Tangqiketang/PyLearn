@@ -1,0 +1,21 @@
+1.去招聘网站找技术栈
+2.LangChain、LangGraph、autoGen等Agent开发框架，Auto-GPT、coze。二次开发自定义Router/Tool
+3.Agent框架设计逻辑
+4.RAG
+5.MCP
+6.熟练Prompt设计、Function Calling；在Milvus/PGVector/Weaviate上部署亿级向量索引
+7.FastApi；OpenTelemetry
+8.QLoRA
+
+微调FT
+监督微调 SFT：Supervised Fine-Tuning
+强化学习RLHF: Reinforcement learning from human feedback
+预训练PT
+
+微调分2种：全量参数跟新 FFT: full Fine-tuning
+         参数高效微调 PEFT: Parameter-Efficient Fine-Tuning
+                a.添加额外参数 Addition-based  A
+                b.选取部分参数更新 Selection-based S
+                c.引入重参数化 Reparametrization-based （R）
+
+先研究AI助手，可以显著提高后面调试微调代码的效率。
