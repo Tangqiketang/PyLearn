@@ -2,7 +2,7 @@
 2.LangChain、LangGraph、autoGen等Agent开发框架，Auto-GPT、coze。二次开发自定义Router/Tool
 3.Agent框架设计逻辑
 4.RAG
-5.MCP
+5.MCP\dify
 6.熟练Prompt设计、Function Calling；在Milvus/PGVector/Weaviate上部署亿级向量索引
 7.FastApi；OpenTelemetry
 8.QLoRA
@@ -19,3 +19,9 @@
                 c.引入重参数化 Reparametrization-based （R）
 
 先研究AI助手，可以显著提高后面调试微调代码的效率。
+claude Code,clawdbot
+
+
+Agent Skills 提示词工程，就是创建会话通用要携带的各种.md文件技能手册。系统提示词。树形结构。
+MCP
+Dify
