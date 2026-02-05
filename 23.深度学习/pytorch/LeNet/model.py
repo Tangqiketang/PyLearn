@@ -2,6 +2,9 @@ import torch
 from torch import nn
 from torchsummary import summary
 
+##  outputH = (inputH+2*pading-filterSize)/stride  + 1;
+
+
 class LeNet(nn.Module):
     def __init__(self):
         super(LeNet, self).__init__()
