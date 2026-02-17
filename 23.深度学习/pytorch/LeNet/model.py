@@ -20,7 +20,7 @@ class LeNet(nn.Module):
         self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(84, 10)
 
-
+    ## 重写nn.Module中未实现的forward。
     def forward(self, x):
         x = self.conv1(x)
         x = self.sigmoid(x)
