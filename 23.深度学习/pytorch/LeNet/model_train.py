@@ -22,12 +22,12 @@ def train_val_data_process():
     train_dataloader = Data.DataLoader(dataset=train_data,
                                        batch_size=32,
                                        shuffle=True,
-                                       num_workers=2)
+                                       num_workers=0)
 
     val_dataloader = Data.DataLoader(dataset=val_data,
                                        batch_size=32,
                                        shuffle=True,
-                                       num_workers=2)
+                                       num_workers=0)
 
     return train_dataloader, val_dataloader
 
@@ -77,7 +77,7 @@ def train_model_process(model, train_dataloader, val_dataloader, num_epochs):
         # 验证集准确度
         val_corrects = 0
 
-        # 对每一个mini-batch训练和计算
+        # 对每一个mini-batch训练和计算。# 这里使用enumerate是因为
         for step, (b_x, b_y) in enumerate(train_dataloader):
             # 将特征和标签放入到训练设备中。
             b_x = b_x.to(device)
@@ -190,5 +190,5 @@ if __name__ == '__main__':
     # 加载数据集
     train_data, val_data = train_val_data_process()
     # 利用现有的模型进行模型的训练
-    train_process = train_model_process(LeNet, train_data, val_data, num_epochs=19)
+    train_process = train_model_process(LeNet, train_data, val_data, num_epochs=20)
     matplot_acc_loss(train_process)
