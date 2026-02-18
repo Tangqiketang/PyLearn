@@ -11,6 +11,10 @@ from model import LeNet
 import torch.nn as nn
 import pandas as pd
 
+##反向传播，就是计算损失函数和W的梯度，如果当前W的值处梯度是负的，说明梯度增加时损失变小，此时就应该根据学习率增大W的值，并再次计算损失看是否变小。
+##  y = wx +b,  loss = (y-t)^2,  则loss=(wx+b-t)^2 ,loss和w的梯度=2（wx+b-t）*x.  其实就是高中导数中某个给定点处的导数。
+
+
 ## 将下载的数据随机分成训练集和验证集，并将训练集和验证集按照32个一组分批次取
 def train_val_data_process():
     train_data = FashionMNIST(root='./data',
@@ -85,7 +89,7 @@ def train_model_process(model, train_dataloader, val_dataloader, num_epochs):
             # 设置模型为训练模式。
             model.train()
 
-            # 调用模型，输出为一个batch中对应的预测。model(b_x)实际上调用的是model.__call__(x)，会调用重写的forward函数
+            # 1.调用模型，输出为一个batch中对应的预测。model(b_x)实际上调用的是model.__call__(x)，会调用重写的forward函数
             output = model(b_x)
             # 查找每一行中最大值对应的行标。output.shape = (batch_size, num_classes)，假设batch_size=2,则output =
             # tensor([
@@ -93,14 +97,14 @@ def train_model_process(model, train_dataloader, val_dataloader, num_epochs):
             #  [1.2, 0.4, 0.6, 3.1, ...]
             # ])   dim=0表示以行（上下）的维度查找，dim=1表示以列（左右）的维度查找最大角标2.5和3.1。
             pre_lab = torch.argmax(output, dim=1)
-            # 计算每一个batch的损失函数
+            #2. 计算每一个batch的损失函数
             loss = criterion(output, b_y)
 
-            # 将梯度初始化为0
+            # 将旧梯度初始化为0。默认是累加的，框架特意设计成累计用于显存不足时
             optimizer.zero_grad()
-            # 反向传播计算
+            #3. 反向传播计算
             loss.backward()
-            # 根据网络反向传播的梯度信息来更新网络的参数，以起到降低loss函数计算值的作用
+            #4. 根据网络反向传播的梯度信息来更新网络的参数，以起到降低loss函数计算值的作用
             optimizer.step()
             # 对损失函数进行累加
             train_loss += loss.item() * b_x.size(0)
