@@ -63,8 +63,8 @@ def train_model_process(model, train_dataloader, val_dataloader, num_epochs):
     since = time.time()
 
     for epoch in range(num_epochs):
-        print("Epoch {}/{}".format(epoch, num_epochs-1))
         print("-"*10)
+        print("Epoch {}/{}".format(epoch, num_epochs-1))
 
         # 初始化参数
         # 训练集样本数量
@@ -81,7 +81,7 @@ def train_model_process(model, train_dataloader, val_dataloader, num_epochs):
         # 验证集准确度
         val_corrects = 0
 
-        # 对每一个mini-batch训练和计算。# 这里使用enumerate是因为
+        # 对每一个mini-batch训练和计算。# 这里使用enumerate是因为train_dataloader有多批,类似一个map
         for step, (b_x, b_y) in enumerate(train_dataloader):
             # 将特征和标签放入到训练设备中。
             b_x = b_x.to(device)
@@ -125,7 +125,6 @@ def train_model_process(model, train_dataloader, val_dataloader, num_epochs):
             pre_lab = torch.argmax(output, dim=1)
             # 计算每一个batch的损失函数
             loss = criterion(output, b_y)
-
 
             # 对损失函数进行累加
             val_loss += loss.item() * b_x.size(0)
