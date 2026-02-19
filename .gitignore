@@ -1,0 +1,28 @@
+# 忽略模型文件
+*.pth
+*.pt
+
+
+# 忽略日志
+logs/
+*.log
+
+# 忽略缓存
+__pycache__/
+*.pyc
+
+## 压缩文件
+*.gz
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/PyLearn.iml
+/23.深度学习/pytorch/1.LeNet/data/FashionMNIST/raw/t10k-images-idx3-ubyte
+/23.深度学习/pytorch/2.AlexNet/data/FashionMNIST/raw/t10k-images-idx3-ubyte
+/23.深度学习/pytorch/2.AlexNet/data/FashionMNIST/raw/t10k-labels-idx1-ubyte
+/23.深度学习/pytorch/1.LeNet/data/FashionMNIST/raw/train-images-idx3-ubyte
+/23.深度学习/pytorch/2.AlexNet/data/FashionMNIST/raw/train-images-idx3-ubyte
+/23.深度学习/pytorch/1.LeNet/data/FashionMNIST/raw/train-labels-idx1-ubyte
+/23.深度学习/pytorch/2.AlexNet/data/FashionMNIST/raw/train-labels-idx1-ubyte
+/.idea/vcs.xml
+/23.深度学习/pytorch/1.LeNet/data/FashionMNIST/raw/t10k-labels-idx1-ubyte
