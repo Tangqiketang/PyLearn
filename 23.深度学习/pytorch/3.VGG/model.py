@@ -61,7 +61,7 @@ class VGG16Net(nn.Module):
             nn.Linear(in_features=128, out_features=10),
         )
 
-        ## 初始化时
+        ## 当卷积层数很深时，由于反向传播链式法则，多个梯度相乘容易导致过大或过小。所以使用kaimingNormal(He Normal)，而全连接层在后面层数较少，对梯度影响较小所以采用正态分布。
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
