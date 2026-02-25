@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+
+  face-service:
+    build: face-service
+    volumes:
+      - ./face-service/models:/root/.insightface/models
+    ports:
+      - "10111:8000"

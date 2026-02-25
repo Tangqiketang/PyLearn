@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>人脸验证</title>
+    <style>
+        body { text-align: center; font-family: Arial; }
+        video, canvas { width: 300px; border: 1px solid #ccc; margin-top: 10px; }
+        button { padding: 10px 20px; margin-top: 10px; font-size: 16px; }
+        #result { margin-top: 20px; font-size: 18px; color: blue; }
+    </style>
+</head>
+<body>
+
+<h2>人脸签到</h2>
+
+<video id="video" autoplay playsinline></video>
+<br>
+<button onclick="startCamera()">开启摄像头</button>
+<button onclick="takePhoto()">拍照并验证</button>
+
+<canvas id="canvas" style="display:none;"></canvas>
+
+<div id="result"></div>
+
+<script>
+    let video = document.getElementById('video');
+    let canvas = document.getElementById('canvas');
+    let resultDiv = document.getElementById('result');
+    let stream;
+
+    async function startCamera() {
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "user" },  // 前置摄像头
+                audio: false
+            });
+            video.srcObject = stream;
+        } catch (err) {
+            alert("无法打开摄像头: " + err);
+        }
+    }
+
+    async function takePhoto() {
+        if (!stream) {
+            alert("请先开启摄像头");
+            return;
+        }
+
+        let context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob(async function(blob) {
+
+            let formData = new FormData();
+            formData.append("file", blob, "face.jpg");
+
+            resultDiv.innerHTML = "识别中...";
+
+            try {
+                let response = await fetch("https://192.168.3.226:10112/verify", {
+                    method: "POST",
+                    body: formData
+                });
+
+                let data = await response.json();
+
+                if (data.success) {
+                    resultDiv.innerHTML =
+                        "识别成功<br>" +
+                        "人员ID: " + data.person_id +
+                        "<br>相似度: " + data.score.toFixed(4);
+                } else {
+                    resultDiv.innerHTML = "识别失败: " + data.msg;
+                }
+
+            } catch (error) {
+                resultDiv.innerHTML = "请求失败: " + error;
+            }
+
+        }, "image/jpeg", 0.9);
+    }
+</script>
+
+</body>
+</html>
