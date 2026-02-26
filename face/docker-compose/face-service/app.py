@@ -8,6 +8,8 @@ import faiss
 app = FastAPI()
 
 # 初始化模型
+# 整体采用开源工业级框架：InsightFace + ONNXRuntime
+# 模型选择：buffalo_l
 model = insightface.app.FaceAnalysis(
     name='buffalo_l',
     root='/root/.insightface'
