@@ -2,7 +2,7 @@ import copy
 import time
 
 import torch
-from torchvision.datasets import FashionMNIST
+from torchvision.datasets import ImageFolder
 from torchvision import transforms
 import torch.utils.data as Data
 import numpy as np
@@ -17,13 +17,15 @@ import pandas as pd
 
 ## 将下载的数据随机分成训练集和验证集，并将训练集和验证集按照32个一组分批次取
 def train_val_data_process():
-    train_data = FashionMNIST(root='./data',
-                              train=True,
-                              transform=transforms.Compose([transforms.Resize(size=224), transforms.ToTensor()]),
-                              download=True)
+    # 定义归一化的加载方式
+    normalize = transforms.Normalize([0.162, 0.151, 0.138], [0.058, 0.052, 0.048])
+    train_transform = transforms.Compose([transforms.Resize((224,224)), transforms.ToTensor(), normalize])
+    # 使用定义的方式加载数据集
+    ROOT_TRAIN = 'data/train'
+    train_data = ImageFolder(ROOT_TRAIN, transform=train_transform)
 
+    ##和之前一样开始分割
     train_data, val_data = Data.random_split(train_data, [round(0.8*len(train_data)), round(0.2*len(train_data))])
-
     train_dataloader = Data.DataLoader(dataset=train_data,
                                        batch_size=32,
                                        shuffle=True,
@@ -194,5 +196,5 @@ if __name__ == '__main__':
     # 加载数据集
     train_data, val_data = train_val_data_process()
     # 利用现有的模型进行模型的训练
-    train_process = train_model_process(GoogLeNet, train_data, val_data, num_epochs=5)
+    train_process = train_model_process(GoogLeNet, train_data, val_data, num_epochs=50)
     matplot_acc_loss(train_process)
