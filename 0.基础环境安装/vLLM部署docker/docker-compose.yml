@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: vllm-glm
+    runtime: nvidia
+    environment:
+      - HF_ENDPOINT=https://hf-mirror.com
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    command: >
+      --model THUDM/chatglm3-6b
+      --trust-remote-code
+      --dtype auto
+      --gpu-memory-utilization 0.9

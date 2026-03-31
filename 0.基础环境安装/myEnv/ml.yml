@@ -1,0 +1,40 @@
+name: ml
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - ffmpeg
+  - numpy
+  - matplotlib
+  - opencv
+  - pillow
+  - scikit-learn
+  - pandas
+  - scipy
+  - jupyterlab
+  - ipykernel
+  - pip
+  - pip:
+      - --pre
+      - --extra-index-url https://download.pytorch.org/whl/nightly/cu128
+      - torch
+      - torchvision
+      - torchaudio
+      - ultralytics
+      - albumentations
+      - torchinfo
+      - torchsummary
+      - librosa
+      - soundfile
+      - openai-whisper
+      - pyttsx3
+      - gradio
+      - fastapi
+      - uvicorn
+      - protobuf
+      - transformers==4.41.2
+      - datasets
+      - tokenizers
+      - accelerate
+      - sentencepiece
+      - huggingface_hub

@@ -1,0 +1,24 @@
+name: nlp
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - scipy
+  - pandas
+  - uvicorn
+  - fastapi
+  - pip
+  - pip:
+      - --pre
+      - --extra-index-url https://download.pytorch.org/whl/nightly/cu128
+      - torch
+      - torchvision
+      - transformers==4.41.2
+      - datasets
+      - tokenizers
+      - torchinfo
+      - librosa
+      - accelerate
+      - sentencepiece
+      - huggingface_hub

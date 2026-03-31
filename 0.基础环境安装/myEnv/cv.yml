@@ -1,0 +1,23 @@
+name: cv
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - matplotlib
+  - opencv
+  - pillow
+  - scikit-learn
+  - pandas
+  - pip
+  - pip:
+      - --pre
+      - --extra-index-url https://download.pytorch.org/whl/nightly/cu128
+      - torch
+      - torchvision
+      - torchaudio
+      - ultralytics
+      - albumentations
+      - torchinfo
+      - torchsummary
+      - huggingface_hub
