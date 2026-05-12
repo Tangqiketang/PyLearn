@@ -25,21 +25,39 @@ nvidia-smi            # 确认驱动和 CUDA 版本
 nvcc --version        # 确认 CUDA Toolkit 版本
 要求：驱动 ≥ 535，CUDA ≥ 12.1。云 GPU 容器实例一般已预装。
 
+=========================================================================
+========================================================================
+# Qwen3.6模型下载
+
+
+nohup huggingface-cli download cyankiwi/Qwen3.6-27B-AWQ-INT4 \
+  --local-dir /data/models/Qwen3.6-27B-AWQ-INT4 \
+  --local-dir-use-symlinks False \
+  > /root/download_qwen36_27b_awq_int4.log 2>&1 &
+
+
+
 
 =========================================================================
 ========================================================================
+# Qwen3.5
+nohup huggingface-cli download Qwen/Qwen3.5-27B-GPTQ-Int4 \
+  --local-dir /data/models/Qwen3.5-27B-GPTQ-Int4 \
+  --local-dir-use-symlinks False \
+  > /root/download_qwen3.5_27b.log 2>&1 &
+
 
 export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
 
-# 并发8，长度32768
-nohup python -m vllm.entrypoints.openai.api_server \
+# 并发8，长度98304
+ nohup python -m vllm.entrypoints.openai.api_server \
     --model /data/models/Qwen3.5-27B-GPTQ-Int4 \
     --served-model-name qwen3.5-27b \
     --host 0.0.0.0 \
     --port 8000 \
     --tensor-parallel-size 2 \
     --gpu-memory-utilization 0.9 \
-    --max-model-len 32768 \
+    --max-model-len 98304 \
     --max-num-seqs 8 \
     --dtype float16 \
     --quantization gptq_marlin \
@@ -49,9 +67,8 @@ nohup python -m vllm.entrypoints.openai.api_server \
     --reasoning-parser qwen3 \
     --default-chat-template-kwargs '{"enable_thinking": false}' \
     --trust-remote-code \
-    > /root/vllm_qwen35_27b.log 2>&1 &
+    > /root/vllm_qwen35_27b.log 2>&1 &	
 
-=====================================================================
 ai:
   llm:
     # === 私有化部署（vLLM）===
