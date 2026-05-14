@@ -303,16 +303,16 @@ nohup python -m vllm.entrypoints.openai.api_server \
   ---
   四、修正后的优化启动命令
 
-nohup python -m vllm.entrypoints.openai.api_server \
+  nohup python -m vllm.entrypoints.openai.api_server \
         --model /data/models/Qwen3.6-27B-AWQ-INT4 \
         --served-model-name chaos3.6-27b \
         --host 0.0.0.0 \
         --port 8000 \
         --tensor-parallel-size 2 \
         --gpu-memory-utilization 0.95 \
-        --max-model-len 262144 \
+        --max-model-len 180000 \
         --max-num-seqs 8 \
-        --dtype auto \
+        --dtype float16 \
         --kv-cache-dtype fp8 \
         --enable-prefix-caching \
         --enable-chunked-prefill \
@@ -323,6 +323,8 @@ nohup python -m vllm.entrypoints.openai.api_server \
         --default-chat-template-kwargs '{"enable_thinking": false}' \
         --trust-remote-code \
         > /root/vllm_chaos36_27b_awq.log 2>&1 &
+
+
 
   与你原命令的差异汇总
 
