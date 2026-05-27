@@ -309,7 +309,7 @@ nohup python -m vllm.entrypoints.openai.api_server \
         --host 0.0.0.0 \
         --port 8000 \
         --tensor-parallel-size 2 \
-        --gpu-memory-utilization 0.95 \
+        --gpu-memory-utilization 0.92 \
         --max-model-len 180000 \
         --max-num-seqs 8 \
         --dtype float16 \
@@ -320,9 +320,9 @@ nohup python -m vllm.entrypoints.openai.api_server \
         --enable-auto-tool-choice \
         --tool-call-parser qwen3_coder \
         --reasoning-parser qwen3 \
-        --default-chat-template-kwargs '{"enable_thinking": false}' \
+        --default-chat-template-kwargs '{"enable_thinking": true}' \
         --trust-remote-code \
-        > /root/vllm_chaos36_27b_awq.log 2>&1 &
+        >> /root/vllm_chaos36_27b_awq.log 2>&1 &
 
 
 
