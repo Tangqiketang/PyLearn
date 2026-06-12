@@ -4,6 +4,10 @@ nohup huggingface-cli download cyankiwi/Qwen3.6-27B-AWQ-INT4 \
   --local-dir-use-symlinks False \
   > /root/download_qwen36_27b_awq_int4.log 2>&1 &
 
+
+export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH 
+
+
 ## 不开启思考
 nohup python -m vllm.entrypoints.openai.api_server \
       --model /data/models/Qwen3.6-27B-AWQ-INT4 \
@@ -320,7 +324,7 @@ nohup python -m vllm.entrypoints.openai.api_server \
         --enable-auto-tool-choice \
         --tool-call-parser qwen3_coder \
         --reasoning-parser qwen3 \
-        --default-chat-template-kwargs '{"enable_thinking": true}' \
+        --default-chat-template-kwargs '{"enable_thinking": false}' \
         --trust-remote-code \
         >> /root/vllm_chaos36_27b_awq.log 2>&1 &
 
