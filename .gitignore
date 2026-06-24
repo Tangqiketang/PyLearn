@@ -26,3 +26,4 @@ __pycache__/
 /23.深度学习/pytorch/2.AlexNet/data/FashionMNIST/raw/train-labels-idx1-ubyte
 /.idea/vcs.xml
 /23.深度学习/pytorch/1.LeNet/data/FashionMNIST/raw/t10k-labels-idx1-ubyte
+.vscode/settings.json
