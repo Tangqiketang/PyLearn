@@ -335,8 +335,7 @@ nohup python -m vllm.entrypoints.openai.api_server \
  --reasoning-parser qwen3 \
  --default-chat-template-kwargs '{"enable_thinking": false}' \
  --trust-remote-code \
-
-> > /root/vllm_chaos36_27b_awq.log 2>&1 &
+  >> /root/vllm_chaos36_27b_awq.log 2>&1 &
 
 与你原命令的差异汇总
 
